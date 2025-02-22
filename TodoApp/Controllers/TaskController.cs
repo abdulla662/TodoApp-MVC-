@@ -40,10 +40,15 @@ namespace TodoApp.Controllers
 
         }
         public IActionResult EditTaskView(int TaskId)
-        {
-            var task = dbContext.Items.FirstOrDefault(e => e.Id == TaskId);
-            return View(task);
-        }
+ {
+     var task = dbContext.Items.FirstOrDefault(e => e.Id == TaskId);
+
+     if (task != null) { 
+     return View(task);
+     }
+     return RedirectToAction("error", "Home");
+
+ }
         public IActionResult SaveEditedData(TaskItem task) {
             if (task != null) {
                 dbContext.Items.Update(task);
